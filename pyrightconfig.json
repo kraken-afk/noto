@@ -1,0 +1,9 @@
+{
+  "typeCheckingMode": "strict",
+  "reportIncompatibleVariableOverride": true,
+  "reportUnknownMemberType": false,
+  "reportUnknownArgumentType": false,
+  "reportUnknownVariableType": false,
+  "reportUntypedClassDecorator": false,
+  "exclude": ["**/migrations", "**/__pycache__"]
+}
