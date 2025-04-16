@@ -3,6 +3,7 @@
   "scripts": {
     "build:ssr": "rspack build -c ./rspack.ssr.config.mjs",
     "build:client": "rspack build -c ./rspack.client.config.mjs",
+    "build": "rspack build -c ./rspack.ssr.config.mjs & rspack build -c ./rspack.client.config.mjs",
     "format": "biome format . --write",
     "lint": "biome lint . --write"
   },

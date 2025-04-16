@@ -8,7 +8,7 @@ from frontend.scripts import ipc
 
 # @login_required  # type: ignore
 def index(request: HttpRequest):
-    props: dict[str, str | int] = {'name': 'devscale'}
+    props: dict[str, str | int] = {'name': 'Noveanre'}
     response = ipc.ssr('index', props)
 
     if response:
