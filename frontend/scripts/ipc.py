@@ -15,7 +15,7 @@ def send_ipc_message(message: str):
     try:
         client.connect('/tmp/bun_notos_in')
         client.sendall(message.encode())
-        response = client.recv(10240)
+        response = client.recv(51200)
         return response.decode()
     except Exception as e:
         print('Socket error:', e)

@@ -184,7 +184,7 @@ def run_dev_environment():
                             last_check[filepath] = mtime
 
                             # Handle different file types
-                            if file.endswith(('.ts', '.tsx', '.css')):
+                            if file.endswith(('.ts', '.tsx')):
                                 print(
                                     f' file changed: {filepath}, triggering rebuild'
                                 )

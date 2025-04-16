@@ -6,7 +6,7 @@ from django.views import View
 from django.middleware.csrf import get_token
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
-from rest.models import User
+from rest.models import User, Note
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 
@@ -15,8 +15,18 @@ from frontend.scripts import ipc
 
 @login_required  # type: ignore
 def index(request: HttpRequest):
-    props: dict[str, str | int] = {'name': 'Noveanre'}
-    response = ipc.ssr('index', props)
+    props = {
+        'user': {
+            'id': str(request.user.id),  # type: ignore
+            'username': str(request.user.username),  # type: ignore
+        },
+        'notes': list(
+            Note.objects.filter(author=request.user).values(
+                'id', 'title', 'body', 'is_public'
+            )
+        ),
+    }
+    response = ipc.ssr('index', props)  # type: ignore
 
     if response:
         return render(
@@ -86,8 +96,6 @@ class RegisterPage(View):
         }
 
         response = ipc.ssr('register', props)
-
-        print(response)
 
         if response:
             return render(
