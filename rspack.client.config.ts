@@ -1,12 +1,21 @@
-
-// @ts-check
 import rspack from '@rspack/core';
+import { defineConfig } from '@rspack/cli';
+import { join } from 'node:path';
+import { cwd } from 'node:process';
+import { baseConfig } from './rspack.config.ts';
 
-/** @type {import("@rspack/cli").Configuration} */
-export const baseConfig = {
-  mode: 'development',
-  resolve: {
-    extensions: ['.tsx', '.ts', '.js', '.jsx'],
+export default defineConfig({
+  ...baseConfig,
+  target: ['es2022', 'web'],
+  entry: {
+    'index.client': join(cwd(), 'frontend/views/index.client.tsx'),
+    'login.client': join(cwd(), 'frontend/views/login.client.tsx'),
+    'register.client': join(cwd(), 'frontend/views/register.client.tsx'),
+  },
+  output: {
+    path: join(cwd(), 'frontend/static/client/'),
+    filename: '[name].js',
+    clean: true,
   },
   module: {
     rules: [
@@ -29,38 +38,18 @@ export const baseConfig = {
         type: 'javascript/auto',
       },
       {
-        test: /\.css$/,
+        test: /\.css$/i,
         use: [
+          // 'style-loader',
           rspack.CssExtractRspackPlugin.loader,
           'css-loader',
           {
             loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                plugins: {
-                  tailwindcss: {},
-                  autoprefixer: {},
-                },
-              },
-            },
+            options: {},
           },
         ],
         type: 'javascript/auto',
       },
     ],
   },
-  plugins: [
-    new rspack.CssExtractRspackPlugin({
-      filename: 'main.css',
-    }),
-  ],
-  experiments: {
-    css: true,
-  },
-  optimization: {
-    minimizer: [
-      new rspack.SwcJsMinimizerRspackPlugin(),
-      new rspack.LightningCssMinimizerRspackPlugin(),
-    ],
-  },
-};
+});

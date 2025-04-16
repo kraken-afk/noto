@@ -1,11 +1,18 @@
+{% load static %}
+
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
+    <link rel="stylesheet" href="{% static 'client/login.client.css' %}" />
   </head>
   <body>
-    <h1>Login</h1>
+    <div id="root">{{ html|safe }}</div>
+    <script type="application/json" id="__DJANGO_PROPS__">
+      {{ json_props|safe }}
+    </script>
+    <script src="{% static 'client/login.client.js' %}"></script>
   </body>
 </html>

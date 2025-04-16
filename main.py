@@ -184,14 +184,14 @@ def run_dev_environment():
                             last_check[filepath] = mtime
 
                             # Handle different file types
-                            if file.endswith(('.ts', '.tsx')):
+                            if file.endswith(('.ts', '.tsx', '.css')):
                                 print(
-                                    f'TypeScript file changed: {filepath}, triggering rebuild'
+                                    f' file changed: {filepath}, triggering rebuild'
                                 )
                                 rebuild_needed = True
-                            elif file.endswith('.py'):
+                            elif file.endswith(('.py', '.html')):
                                 print(
-                                    f'Python file changed: {filepath}, will restart Django server'
+                                    f'Django file changed: {filepath}, will restart Django server'
                                 )
                                 restart_django = True
                     else:
@@ -252,4 +252,3 @@ if __name__ == '__main__':
         main()
     except KeyboardInterrupt:
         shutdown()
-

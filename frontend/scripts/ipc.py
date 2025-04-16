@@ -2,7 +2,10 @@ import socket
 import json
 
 
-def ssr(file: str, props: dict[str, str | int]):
+def ssr(
+    file: str,
+    props: dict[str, str] | dict[str, str | int] | dict[str, str | None],
+):
     response = send_ipc_message(json.dumps({'target': file, 'props': props}))
     return response
 
@@ -12,7 +15,7 @@ def send_ipc_message(message: str):
     try:
         client.connect('/tmp/bun_notos_in')
         client.sendall(message.encode())
-        response = client.recv(1024)
+        response = client.recv(10240)
         return response.decode()
     except Exception as e:
         print('Socket error:', e)
