@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
-from os.path import basename
 from pathlib import Path
 from decouple import config  # type: ignore
 
@@ -22,9 +21,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = (
-    'django-insecure-t73r@pug=f57n7xm55yh@s6!m#&1y@os)%4k%^a@z7=c#0p866'
+SECRET_KEY = config(
+    'SECRET',
+    default='django-insecure-t73r@pug=f57n7xm55yh@s6!m#&1y@os)%4k%^a@z7=c#0p866',
+    cast=str,
 )
+
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost',
+    'http://ec2-54-179-140-71.ap-southeast-1.compute.amazonaws.com',
+]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
