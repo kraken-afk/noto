@@ -6,6 +6,16 @@ global:
     - rproxy 
 
 hosts:
+  - domain: 'ec2-54-179-140-71.ap-southeast-1.compute.amazonaws.com'
+    locations:
+      - path: '/static/'
+        wwwroot: './staticfiles'
+        rewriteMap:
+          - regex: "^/static(?:[/?#](.*))?"
+            replacement: "/$1"
+            last: true
+      - path: '/'
+        proxyTo: 'http://localhost:8000'
   - domain: 'localhost'
     locations:
       - path: '/static/'
@@ -16,4 +26,5 @@ hosts:
             last: true
       - path: '/'
         proxyTo: 'http://localhost:8000'
+
 
