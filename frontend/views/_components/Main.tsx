@@ -45,14 +45,14 @@ export function Main({ note }: MainProps) {
 
     const csrfToken = getCookie('csrftoken');
     if (!csrfToken) {
-      toast.error('You\'re not authenticated');
+      toast.error("You're not authenticated");
       return;
     }
 
     setIsPdfGenerating(true);
-    
+
     toast.loading('Initiating PDF generation...', { id: 'pdf-init' });
-    
+
     fetch(`/api/notes/${note?.id}/generate_pdf/`, {
       method: 'POST',
       headers: {
@@ -72,14 +72,14 @@ export function Main({ note }: MainProps) {
       })
       .catch((error) => {
         toast.dismiss('pdf-init');
-        toast.error('Failed to generate PDF: ' + error.message);
+        toast.error(`Failed to generate PDF: ${error.message}`);
         setIsPdfGenerating(false);
       });
   }
 
   function pollPdfStatus(taskId: string) {
     toast.loading('Processing PDF...', { id: 'pdf-status' });
-    
+
     const checkStatus = () => {
       fetch(`/api/notes/${note?.id}/pdf_status/?task_id=${taskId}`, {
         headers: {
@@ -122,11 +122,12 @@ export function Main({ note }: MainProps) {
     const csrfToken = getCookie('csrftoken');
 
     if (!csrfToken) {
-      return void toast.error('You\'re not authenticated');
+      return void toast.error("You're not authenticated");
     }
 
     const method = note?.id === 'new' ? 'POST' : 'PATCH';
-    const endpoint = note?.id === 'new' ? '/api/notes/' : `/api/notes/${note?.id}/`;
+    const endpoint =
+      note?.id === 'new' ? '/api/notes/' : `/api/notes/${note?.id}/`;
 
     toast.promise(
       fetch(endpoint, {
@@ -166,7 +167,7 @@ export function Main({ note }: MainProps) {
       fetch(`/api/notes/${id}/`, {
         method: 'DELETE',
         headers: {
-          credentials: 'include', 
+          credentials: 'include',
           'X-CSRFToken': csrfToken,
         },
       }).then((res) => {
