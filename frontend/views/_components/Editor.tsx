@@ -15,8 +15,8 @@ export function Editor({
         root,
         defaultValue: initialContent,
         features: {
-          'image-block': false,
-        },
+          "image-block": false
+        }
       });
 
       crepe.on(

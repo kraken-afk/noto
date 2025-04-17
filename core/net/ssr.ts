@@ -16,8 +16,6 @@ const server = createServer((socket) => {
     const { default: page } = await import(target);
     const hydrated = renderToString(React.createElement(page, props));
 
-    console.log(hydrated);
-
     socket.write(hydrated);
   });
 

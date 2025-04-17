@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'huey.contrib.djhuey',
+    'rest_framework',
+    'rest_framework.authtoken',
     'frontend',
     'rest',
 ]
@@ -127,6 +130,9 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
@@ -135,3 +141,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = '/login/'
 
 AUTH_USER_MODEL = 'rest.User'
+
+HUEY = {
+    'huey_class': 'huey.RedisHuey',
+    'name': 'markdown-pdf',
+    'results': True,
+    'store_none': False,
+    'immediate': False,
+    'utc': True,
+    'connection': {
+        'host': 'localhost',
+        'port': 6379,
+        'db': 0,
+    },
+}

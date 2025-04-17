@@ -110,7 +110,7 @@ def run_dev_environment():
 
     # Start the SSR process with its own watcher (bun has --watch built in)
     ssr_process = start_process(
-        ['bun', 'run', '--watch', str(Path.cwd() / 'frontend/scripts/ssr.ts')],
+        ['bun', 'run', '--watch', str(Path.cwd() / 'core/net/ssr.ts')],
         'ssr',
     )
 
@@ -147,7 +147,7 @@ def run_dev_environment():
                                 'bun',
                                 'run',
                                 '--watch',
-                                str(Path.cwd() / 'frontend/scripts/ssr.ts'),
+                                str(Path.cwd() / 'core/net/ssr.ts'),
                             ],
                             'ssr',
                         )
@@ -252,3 +252,4 @@ if __name__ == '__main__':
         main()
     except KeyboardInterrupt:
         shutdown()
+

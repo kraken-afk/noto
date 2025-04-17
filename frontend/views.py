@@ -6,11 +6,11 @@ from django.views import View
 from django.middleware.csrf import get_token
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
-from rest.models import User, Note
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 
-from frontend.scripts import ipc
+from rest.models import User, Note
+from core.net import ipc
 
 
 @login_required  # type: ignore
