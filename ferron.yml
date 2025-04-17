@@ -1,0 +1,19 @@
+
+global:
+  port: 80
+  wwwroot: './staticfiles'
+  loadModules:
+    - rproxy 
+
+hosts:
+  - domain: 'localhost'
+    locations:
+      - path: '/static/'
+        wwwroot: './staticfiles'
+        rewriteMap:
+          - regex: "^/static(?:[/?#](.*))?"
+            replacement: "/$1"
+            last: true
+      - path: '/'
+        proxyTo: 'http://localhost:8000'
+
